@@ -1,0 +1,9 @@
+{
+  "answers": [
+    "1=Großbritannien, 2=Sowjetunion, 3=Frankreich, 4=USA",
+    "1=Sowjetunion, 2=Großbritannien, 3=USA, 4=Frankreich",
+    "1=Großbritannien, 2=Sowjetunion, 3=USA, 4=Frankreich",
+    "1=Großbritannien, 2=USA, 3=Sowjetunion, 4=Frankreich"
+  ],
+  "correctIndex": 2
+}

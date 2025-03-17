@@ -1,0 +1,5 @@
+{
+  "question": "Wo ist ein Sitz des Europäischen Parlaments?",
+  "answers": ["London", "Paris", "Berlin", "Straßburg"],
+  "correctIndex": 3
+}
