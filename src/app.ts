@@ -2,6 +2,7 @@ import puppeteer from "puppeteer";
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
+import dotenv from "dotenv";
 
 const DocumentIntelligence =
     require("@azure-rest/ai-document-intelligence").default,
@@ -10,11 +11,19 @@ const DocumentIntelligence =
     isUnexpected,
   } = require("@azure-rest/ai-document-intelligence");
 
-const endpoint = "";
-const key = "";
+dotenv.config();
+
+const endpoint = process.env.AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT;
+const key = process.env.AZURE_DOCUMENT_INTELLIGENCE_KEY;
+
+if (!endpoint || !key) {
+  throw new Error(
+    "Missing required environment variables. Please check your .env file."
+  );
+}
 
 const formUrl =
-  "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/rest-api/read.png";
+  "https://raw.githubusercontent.com/BogdanYarotsky/german-test-scraper/refs/heads/main/padded/1.png";
 
 async function main() {
   const client = DocumentIntelligence(endpoint, { key: key });
