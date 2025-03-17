@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "die Lebensversicherung",
+    "die gesetzliche Rentenversicherung",
+    "die Arbeitslosenversicherung",
+    "die Pflegeversicherung"
+  ],
+  "correctIndex": 0,
+  "question": "Was gehört nicht zur gesetzlichen Sozialversicherung?"
+}

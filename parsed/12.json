@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "Ja, wenn mehr als die Hälfte der Abgeordneten im Bundestag dafür sind.",
+    "Ja, aber dazu müssen zwei Drittel der Abgeordneten im Bundestag dafür sein.",
+    "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.",
+    "Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen."
+  ],
+  "correctIndex": 2,
+  "question": "Eine Partei im Deutschen Bundestag will die Pressefreiheit abschaffen. Ist das möglich?"
+}

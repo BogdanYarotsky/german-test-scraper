@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "Sie muss an ihre Krankenkasse schreiben.",
+    "Sie muss einen Antrag bei der Elterngeldstelle stellen.",
+    "Sie muss nichts tun, denn sie bekommt automatisch Elterngeld.",
+    "Sie muss das Arbeitsamt um Erlaubnis bitten."
+  ],
+  "correctIndex": 1,
+  "question": "Frau Seger bekommt ein Kind. Was muss sie tun, um Elterngeld zu erhalten?"
+}

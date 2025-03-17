@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "ein Rechtsanwalt / eine Rechtsanwältin",
+    "ein Richter / eine Richterin",
+    "ein Schöffe / eine Schöffin",
+    "ein Staatsanwalt / eine Staatsanwältin"
+  ],
+  "correctIndex": 0,
+  "question": "Wer berät in Deutschland Personen bei Rechtsfragen und vertritt sie vor Gericht?"
+}

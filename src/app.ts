@@ -22,28 +22,68 @@ if (!endpoint || !key) {
   );
 }
 
-const formUrl =
-  "https://raw.githubusercontent.com/BogdanYarotsky/german-test-scraper/refs/heads/main/padded/1.png";
+interface ParsedQuestionData {
+  question: string | undefined;
+  answers: string[];
+  correctIndex: number;
+}
 
 async function main() {
-  const client = DocumentIntelligence(endpoint, { key: key });
-  const initialResponse = await client
-    .path("/documentModels/{modelId}:analyze", "prebuilt-read")
-    .post({
-      contentType: "application/json",
-      body: {
-        urlSource: formUrl,
-      },
-    });
-
-  if (isUnexpected(initialResponse)) {
-    throw initialResponse.body.error;
+  const distFolder = path.join(__dirname, "../parsed");
+  if (!fs.existsSync(distFolder)) {
+    fs.mkdirSync(distFolder, { recursive: true });
   }
 
-  const poller = getLongRunningPoller(client, initialResponse);
-  const analyzeResult = (await poller.pollUntilDone()).body.analyzeResult;
-  const content = analyzeResult?.content;
-  console.log(content);
+  const client = DocumentIntelligence(endpoint, { key: key });
+  for (let i = 27; i <= 310; i++) {
+    const srcJsonPath = path.join(__dirname, "../scraped", `${i}.json`);
+    const distJsonPath = path.join(distFolder, `${i}.json`);
+
+    try {
+      // Check if file exists and read it
+      if (fs.existsSync(srcJsonPath)) {
+        const data = JSON.parse(
+          fs.readFileSync(srcJsonPath, "utf8")
+        ) as ParsedQuestionData;
+
+        // Only extract text if question is undefined or missing
+        if (!data.question) {
+          console.log(`Extracting text for question ${i}...`);
+          data.question = await extractText(i);
+          // Add one second delay after extracting text
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        } else {
+          console.log(`Question ${i} already has text.`);
+        }
+        fs.writeFileSync(distJsonPath, JSON.stringify(data, null, 2));
+        console.log(`Saved question ${i} with extracted text.`);
+      } else {
+        console.log(`JSON file for question ${i} not found.`);
+      }
+    } catch (error) {
+      console.error(`Error processing question ${i}:`, error);
+    }
+  }
+
+  async function extractText(i: number): Promise<string> {
+    const formUrl = `https://raw.githubusercontent.com/BogdanYarotsky/german-test-scraper/refs/heads/main/padded/${i}.png`;
+    const response = await client
+      .path("/documentModels/{modelId}:analyze", "prebuilt-read")
+      .post({
+        contentType: "application/json",
+        body: {
+          urlSource: formUrl,
+        },
+      });
+
+    if (isUnexpected(response)) {
+      throw response.body.error;
+    }
+    const poller = getLongRunningPoller(client, response);
+    const analyzeResult = (await poller.pollUntilDone()).body.analyzeResult;
+    const content = analyzeResult?.content as string;
+    return content.split("\n")[0];
+  }
 }
 
 // Configuration

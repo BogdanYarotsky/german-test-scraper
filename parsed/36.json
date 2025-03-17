@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "die Krankenversicherung",
+    "die Autoversicherung",
+    "die Gebäudeversicherung",
+    "die Haftpflichtversicherung"
+  ],
+  "correctIndex": 0,
+  "question": "Welche Maßnahme schafft in Deutschland soziale Sicherheit ?"
+}

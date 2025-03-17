@@ -1,0 +1,10 @@
+{
+  "answers": [
+    "der / die älteste Abgeordnete im Parlament",
+    "der Ministerpräsident / die Ministerpräsidentin des größten Bundeslandes",
+    "ein ehemaliger Bundeskanzler / eine ehemalige Bundeskanzlerin",
+    "ein Abgeordneter / eine Abgeordnete der stärksten Fraktion"
+  ],
+  "correctIndex": 3,
+  "question": "Wer wird meistens zum Präsidenten/ zur Präsidentin des Deutschen Bundestages gewählt?"
+}
