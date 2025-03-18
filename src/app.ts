@@ -21,14 +21,51 @@ if (!endpoint || !key) {
     "Missing required environment variables. Please check your .env file."
   );
 }
+type FlattenedQuestionData = [string, string[], number];
 
 interface ParsedQuestionData {
+  question: string;
+  answers: string[];
+  correctIndex: number;
+}
+
+async function transformAndSave() {
+  const parsedFolder = path.join(__dirname, "../parsed");
+  const outputFilePath = path.join(__dirname, "../questions.json");
+
+  try {
+    const files = fs
+      .readdirSync(parsedFolder)
+      .filter((file) => file.endsWith(".json"));
+    const flattenedData: FlattenedQuestionData[] = [];
+
+    for (const file of files) {
+      const filePath = path.join(parsedFolder, file);
+      const data = JSON.parse(
+        fs.readFileSync(filePath, "utf8")
+      ) as ParsedQuestionData;
+      const flattened: FlattenedQuestionData = [
+        data.question,
+        data.answers,
+        data.correctIndex,
+      ];
+      flattenedData.push(flattened);
+    }
+
+    fs.writeFileSync(outputFilePath, JSON.stringify(flattenedData, null, 2));
+    console.log(`Flattened data saved to ${outputFilePath}`);
+  } catch (error) {
+    console.error("Error transforming and saving data:", error);
+  }
+}
+
+interface ScrapedQuestionData {
   question: string | undefined;
   answers: string[];
   correctIndex: number;
 }
 
-async function main() {
+async function parse() {
   const distFolder = path.join(__dirname, "../parsed");
   if (!fs.existsSync(distFolder)) {
     fs.mkdirSync(distFolder, { recursive: true });
@@ -44,7 +81,7 @@ async function main() {
       if (fs.existsSync(srcJsonPath)) {
         const data = JSON.parse(
           fs.readFileSync(srcJsonPath, "utf8")
-        ) as ParsedQuestionData;
+        ) as ScrapedQuestionData;
 
         // Only extract text if question is undefined or missing
         if (!data.question) {
@@ -245,4 +282,4 @@ async function run() {
 }
 
 // Run the function
-main().catch(console.error);
+transformAndSave().catch(console.error);
