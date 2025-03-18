@@ -36,7 +36,8 @@ async function transformAndSave() {
   try {
     const files = fs
       .readdirSync(parsedFolder)
-      .filter((file) => file.endsWith(".json"));
+      .filter((file) => file.endsWith(".json"))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     const flattenedData: FlattenedQuestionData[] = [];
 
     for (const file of files) {
